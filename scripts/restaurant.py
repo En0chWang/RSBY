@@ -1,8 +1,7 @@
 import sys
 import json
 import mysql.connector
-import heapq
-
+import requests
 
 def dot_product(x, category_binary_vector):
     x = map(int, x.split(','))
@@ -33,6 +32,14 @@ def main(category_binary_vector, price, rating):
         res_list.append(sub_li[i])
     response_list = []
     for each in res_list:
+        url = "https://api.yelp.com/v3/businesses/%s" % (each[0])
+
+        payload = {}
+        headers = {
+            'Authorization': 'Bearer Rd1MPDe-jclgH88GgLpwIXviyb5ujN8uRr_8E0YBhrELRUrHIQLTSrEE935jUfEVaDHutQvSOqxlUsKRYngDgf5XwE6rZSp972Q9JVeU8PlsucB0ydeiYBejvoBUXHYx'
+        }
+        response = requests.request("GET", url, headers=headers, data = payload)
+        response = response.json()
         response_list.append({
             'business_id': each[0],
             'name': each[1],
@@ -43,7 +50,8 @@ def main(category_binary_vector, price, rating):
             'is_open': each[6],
             'stars': each[8],
             'price': each[9],
-            'review_count': each[10]
+            'review_count': each[10],
+            'photo': response['image_url']
         })
     print(json.dumps(response_list))
 
