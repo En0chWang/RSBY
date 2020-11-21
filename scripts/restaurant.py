@@ -3,6 +3,7 @@ import json
 import mysql.connector
 import requests
 
+
 def dot_product(x, category_binary_vector):
     x = map(int, x.split(','))
     return sum(i[0] * i[1] for i in zip(x, category_binary_vector))
@@ -38,7 +39,7 @@ def main(category_binary_vector, price, rating):
         headers = {
             'Authorization': 'Bearer Rd1MPDe-jclgH88GgLpwIXviyb5ujN8uRr_8E0YBhrELRUrHIQLTSrEE935jUfEVaDHutQvSOqxlUsKRYngDgf5XwE6rZSp972Q9JVeU8PlsucB0ydeiYBejvoBUXHYx'
         }
-        response = requests.request("GET", url, headers=headers, data = payload)
+        response = requests.request("GET", url, headers=headers, data=payload)
         response = response.json()
         response_list.append({
             'business_id': each[0],
