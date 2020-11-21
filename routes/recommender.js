@@ -69,26 +69,6 @@ router.get('/top10users', (req, res) => {
 
 });
 
-const convert = (restaurants) => {
-  return new Promise((resolve, reject) => {
-    if (err) {
-      return reject(err);
-    }
-    resolve(restaurants.split(', ')).reduce((reviews, business_id) => {
-      url = "http://3.21.133.7/api/businessId?businessId=" + business_id
-
-      request(url, (error, response, data) => {
-        if (error) {
-          res.json({ error: 'it is here' });
-        }
-        reviews.push(JSON.parse(data));
-        console.log(reviews);
-      });
-      return reviews;
-    }, []);
-  });
-}
-
 router.get('/reviews', (req, res) => {
   /*
 Sending these exampleArgs as (key, value) pairs in the POST request.
