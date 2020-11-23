@@ -9,15 +9,15 @@ def dot_product(x, category_binary_vector):
     return sum(i[0] * i[1] for i in zip(x, category_binary_vector))
 
 
-def main(category_binary_vector, price, rating):
+def main(category_binary_vector, price, rating, city, state):
     cnx = mysql.connector.connect(
         user='root',
         password='wangyinuo696683',
         host='database-1.cjy5mlvqnx2k.us-west-1.rds.amazonaws.com',
         database='restaurant')
     cursor = cnx.cursor()
-    query = "select * from restaurant_basic_info left join restaurant_vector on restaurant_basic_info.business_id = restaurant_vector.business_id where stars >= '%s' and price >= '%s';" % (
-        rating, price)
+    query = "select * from restaurant_basic_info left join restaurant_vector on restaurant_basic_info.business_id = restaurant_vector.business_id where stars >= '%s' and price >= '%s' and city = '%s' and state = '%s';" % (
+        rating, price, city, state)
     cursor.execute(query)
 
     sub_li = []
@@ -58,7 +58,7 @@ def main(category_binary_vector, price, rating):
 
 
 if __name__ == "__main__":
-    category = sys.argv[1]
+    category = sys.argv[1].lower()
     price = sys.argv[2]
     if price == '$':
         price = 1
@@ -69,10 +69,13 @@ if __name__ == "__main__":
     else:
         price = 4
     rating = sys.argv[3]
+    city = sys.argv[4]
+    state = sys.argv[5]
 
-    restaurant_list = ['Butcher', 'Dumplings', 'Fondue', 'Laotian', 'Cambodian', 'Pan Asian', 'Indian', 'German', 'Signature Cuisine', 'Basque', 'Polynesian', 'Shaved Snow', 'Juice Bars & Smoothies', 'Persian/Iranian', 'Canadian (New)', 'Sugar Shacks', 'Indonesian', 'Cheesesteaks', 'Donairs', 'Brazilian', 'Swiss Food', 'Catalan', 'Bakeries', 'Kombucha', 'Specialty Food', 'Taiwanese', 'Coffee & Tea', 'Soul Food', 'Eastern European', 'Hungarian', 'Buffets', 'Cideries', 'Delis', 'Gluten-Free', 'American (New)', 'Russian', 'Comfort Food', 'African', 'Hawaiian', 'International Grocery', 'Sri Lankan', 'Milkshake Bars', 'Syrian', 'Sushi Bars', 'Supper Clubs', 'Ice Cream & Frozen Yogurt', 'Czech/Slovakian', 'Backshop', 'Vegan', 'Food Court', 'Thai', 'Cafes', 'Food Delivery Services', 'Nicaraguan', 'Pretzels', 'Bubble Tea', 'Kebab', 'Modern European', 'Scottish', 'Tapas/Small Plates', 'Acai Bowls', 'Coffee & Tea Supplies', 'Fish & Chips', 'Middle Eastern', 'CSA', 'Peruvian', 'Internet Cafes', 'Poutineries', 'Austrian', 'Bagels', 'Sandwiches', 'Hong Kong Style Cafe', 'Tex-Mex', 'Waffles', 'Donuts', 'Breakfast & Brunch', 'Do-It-Yourself Food', 'British', 'Polish', 'Honey', 'Eritrean', 'Salad', 'Game Meat', 'Desserts', 'Belgian', 'Pizza', 'Beverage Store', 'Armenian', 'Ethiopian', 'Pakistani', 'Chicken Wings', 'Seafood', 'Street Vendors', 'Cafeteria',
-                       'Honduran', 'Southern', 'Smokehouse', 'Barbeque', 'Himalayan/Nepalese', 'Uzbek', 'Water Stores', 'Imported Food', 'Beer Hall', 'American (Traditional)', 'Cupcakes', 'Latin American', 'Ukrainian', 'Shaved Ice', 'Creperies', 'Chicken Shop', 'International', 'Burmese', 'Delicatessen', 'Rotisserie Chicken', 'Kosher', 'Vietnamese', 'Bulgarian', 'Diners', 'Bistros', 'Japanese', 'Caribbean', 'Convenience Stores', 'Malaysian', 'Mediterranean', 'Arabian', 'Turkish', 'Halal', 'Farmers Market', 'Mexican', 'New Mexican Cuisine', 'Chinese', 'Korean', 'Greek', 'Steakhouses', 'Kiosk', 'Slovakian', 'Grocery', 'Organic Stores', 'Moroccan', 'Island Pub', 'Churros', 'Noodles', 'Coffee Roasteries', 'Guamanian', 'Custom Cakes', 'Patisserie/Cake Shop', 'Brasseries', 'Food Trucks', 'Empanadas', 'Beer Garden', 'Cuban', 'Australian', 'Soup', 'Irish', 'Burgers', 'Tapas Bars', 'Chimney Cakes', 'Spanish', 'Bangladeshi', 'Poke', 'Cajun/Creole', 'Czech', 'Gastropubs', 'Fast Food', 'Japanese Sweets', 'Wineries', 'Hot Dogs', 'Hot Pot', 'Pita', 'Scandinavian', 'Argentine', 'Distilleries', 'Portuguese', 'Live/Raw Food', 'Mongolian', 'Pub Food', 'Asian Fusion', 'Gelato', 'French', 'Breweries', 'Wraps', 'Filipino', 'Singaporean', 'Pop-Up Restaurants', 'Food Stands', 'Ethical Grocery', 'Meaderies', 'Dinner Theater', 'Vegetarian', 'Italian', 'Afghan', 'Tea Rooms', 'Iberian']
+    restaurant_list = ['butcher', 'dumplings', 'fondue', 'laotian', 'cambodian', 'pan asian', 'indian', 'german', 'signature cuisine', 'basque', 'polynesian', 'shaved snow', 'juice bars & smoothies', 'persian/iranian', 'canadian (new)', 'sugar shacks', 'indonesian', 'cheesesteaks', 'donairs', 'brazilian', 'swiss food', 'catalan', 'bakeries', 'kombucha', 'specialty food', 'taiwanese', 'coffee & tea', 'soul food', 'eastern european', 'hungarian', 'buffets', 'cideries', 'delis', 'gluten-free', 'american (new)', 'russian', 'comfort food', 'african', 'hawaiian', 'international grocery', 'sri lankan', 'milkshake bars', 'syrian', 'sushi bars', 'supper clubs', 'ice cream & frozen yogurt', 'czech/slovakian', 'backshop', 'vegan', 'food court', 'thai', 'cafes', 'food delivery services', 'nicaraguan', 'pretzels', 'bubble tea', 'kebab', 'modern european', 'scottish', 'tapas/small plates', 'acai bowls', 'coffee & tea supplies', 'fish & chips', 'middle eastern', 'csa', 'peruvian', 'internet cafes', 'poutineries', 'austrian', 'bagels', 'sandwiches', 'hong kong style cafe', 'tex-mex', 'waffles', 'donuts', 'breakfast & brunch', 'do-it-yourself food', 'british', 'polish', 'honey', 'eritrean', 'salad', 'game meat', 'desserts', 'belgian', 'pizza', 'beverage store', 'armenian', 'ethiopian', 'pakistani', 'chicken wings', 'seafood', 'street vendors', 'cafeteria',
+                       'honduran', 'southern', 'smokehouse', 'barbeque', 'himalayan/nepalese', 'uzbek', 'water stores', 'imported food', 'beer hall', 'american (traditional)', 'cupcakes', 'latin american', 'ukrainian', 'shaved ice', 'creperies', 'chicken shop', 'international', 'burmese', 'delicatessen', 'rotisserie chicken', 'kosher', 'vietnamese', 'bulgarian', 'diners', 'bistros', 'japanese', 'caribbean', 'convenience stores', 'malaysian', 'mediterranean', 'arabian', 'turkish', 'halal', 'farmers market', 'mexican', 'new mexican cuisine', 'chinese', 'korean', 'greek', 'steakhouses', 'kiosk', 'slovakian', 'grocery', 'organic stores', 'moroccan', 'island pub', 'churros', 'noodles', 'coffee roasteries', 'guamanian', 'custom cakes', 'patisserie/cake shop', 'brasseries', 'food trucks', 'empanadas', 'beer garden', 'cuban', 'australian', 'soup', 'irish', 'burgers', 'tapas bars', 'chimney cakes', 'spanish', 'bangladeshi', 'poke', 'cajun/creole', 'czech', 'gastropubs', 'fast food', 'japanese sweets', 'wineries', 'hot dogs', 'hot pot', 'pita', 'scandinavian', 'argentine', 'distilleries', 'portuguese', 'live/raw food', 'mongolian', 'pub food', 'asian fusion', 'gelato', 'french', 'breweries', 'wraps', 'filipino', 'singaporean', 'pop-up restaurants', 'food stands', 'ethical grocery', 'meaderies', 'dinner theater', 'vegetarian', 'italian', 'afghan', 'tea rooms', 'iberian']
+
     category_set = set(category.split(" "))
     category_binary_vector = list(
-        map(lambda x: 1 if x in category_set else 0, restaurant_list))
-    main(category_binary_vector, price, rating)
+        map(lambda x: 1 if len(set(x.split(' ')).intersection(category_set)) > 0 else 0, restaurant_list))
+    main(category_binary_vector, price, rating, city, state)

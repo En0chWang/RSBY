@@ -18,7 +18,7 @@ router.get('/top10restaurants', (req, res) => {
       "rating": "3.5"
     }
   */
-  const postedArgs = [req.query.category, req.query.price, req.query.rating];
+  const postedArgs = [req.query.category, req.query.price, req.query.rating, req.query.city, req.query.state];
 
   /*
     @desc Get restaurant info
