@@ -17,6 +17,9 @@ npm install
 npm start
 ```
 
+## Databases
+![alt text](./img/database.png)
+
 
 ## Three Major APIs
 | API                                                                         | Description                                                            |

@@ -55,7 +55,6 @@ router.get('/top10users', (req, res) => {
     /*
       @desc Get restaurant info
     */
-    console.log(postedArgs)
     Recommender.user_recommender({ args: postedArgs })
       .then(result => res.send(JSON.parse(result[0])))
       .catch(err =>
