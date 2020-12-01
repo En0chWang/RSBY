@@ -2,6 +2,7 @@ import sys
 import json
 import mysql.connector
 import requests
+import keys
 
 
 def dot_product(x, category_binary_vector):
@@ -11,10 +12,10 @@ def dot_product(x, category_binary_vector):
 
 def main(category_binary_vector, price, rating, city, state):
     cnx = mysql.connector.connect(
-        user='root',
-        password='wangyinuo696683',
-        host='database-1.cjy5mlvqnx2k.us-west-1.rds.amazonaws.com',
-        database='restaurant')
+        user=keys.MYSQL_USER,
+        password=keys.MYSQL_PASSWORD,
+        host=keys.MYSQL_HOST,
+        database=keys.MYSQL_DATABASE)
     cursor = cnx.cursor()
     query = "select * from restaurant_basic_info left join restaurant_vector on restaurant_basic_info.business_id = restaurant_vector.business_id where stars >= '%s' and price >= '%s' and city = '%s' and state = '%s';" % (
         rating, price, city, state)

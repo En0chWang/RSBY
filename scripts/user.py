@@ -2,14 +2,15 @@ import sys
 import json
 import mysql.connector
 import requests
+import keys
 
 
 def get_user_by_restaurant(user_id):
     cnx = mysql.connector.connect(
-        user='root',
-        password='wangyinuo696683',
-        host='database-1.cjy5mlvqnx2k.us-west-1.rds.amazonaws.com',
-        database='restaurant')
+        user=keys.MYSQL_USER,
+        password=keys.MYSQL_PASSWORD,
+        host=keys.MYSQL_HOST,
+        database=keys.MYSQL_DATABASE)
     cursor = cnx.cursor()
     query = "select * from user_basic_info where user_id = '%s';" % (user_id)
     cursor.execute(query)
