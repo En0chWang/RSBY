@@ -1,10 +1,10 @@
-# DSCI551-Project
-A Ranking System Based on YELP Open Dataset
+# RSBY
+A Recommender System Based on YELP Open Dataset
 
 
 ## Core tech stack
 - Node.js
-- PySpark
+- PySpark (Apache Spark in Python)
 - MySQL / DynamoDB
 
 
