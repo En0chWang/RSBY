@@ -21,7 +21,7 @@ npm start
 ![alt text](./img/database.png)
 
 
-## Three Major APIs
+## APIs
 | API                                                                         | Description                                                            |
 |-----------------------------------------------------------------------------|------------------------------------------------------------------------|
 | localhost:5000/recommender/top10restaurants?{catgory, price, rating, city, state} | Get the top 10 restaurants based on category, price, rating, and city. |
