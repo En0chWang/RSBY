@@ -11,8 +11,8 @@ A Recommender System Based on YELP Open Dataset
 ## Installation
 Make sure Node.js and NPM are installed beforeband
 ```bash
-git clone https://github.com/En0chWang/DSCI551-Project.git
-cd DSCI551-Project
+git clone https://github.com/En0chWang/RSBY.git
+cd RSBY
 npm install
 npm start
 ```
